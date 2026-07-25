@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Wörterraten</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    background: #121213;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+  }
+  h1 {
+    letter-spacing: 2px;
+    border-bottom: 1px solid #3a3a3c;
+    padding-bottom: 10px;
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+  }
+  #board {
+    display: grid;
+    grid-template-rows: repeat(6, 1fr);
+    gap: 6px;
+    margin: 20px 0;
+  }
+  .row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 6px;
+  }
+  .tile {
+    width: 56px;
+    height: 56px;
+    border: 2px solid #3a3a3c;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: transform 0.15s ease;
+  }
+  .tile.filled { border-color: #565758; }
+  .tile.correct { background: #538d4e; border-color: #538d4e; }
+  .tile.present { background: #b59f3b; border-color: #b59f3b; }
+  .tile.absent { background: #3a3a3c; border-color: #3a3a3c; }
+  .tile.pop { transform: scale(1.1); }
+
+  #keyboard {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    max-width: 500px;
+  }
+  .kb-row { display: flex; justify-content: center; gap: 6px; }
+  .key {
+    background: #818384;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 14px 0;
+    flex: 1;
+    max-width: 43px;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+  }
+  .key.wide { max-width: 65px; font-size: 12px; }
+  .key.correct { background: #538d4e; }
+  .key.present { background: #b59f3b; }
+  .key.absent { background: #3a3a3c; color: #888; }
+
+  #message {
+    min-height: 30px;
+    margin: 10px 0;
+    font-weight: bold;
+    text-align: center;
+  }
+  #controls {
+    margin-bottom: 10px;
+  }
+  button.action {
+    background: #538d4e;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    margin: 0 5px;
+  }
+  button.action:hover { opacity: 0.9; }
+  #anleitung {
+    max-width: 500px;
+    font-size: 13px;
+    color: #ccc;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+</style>
+</head>
+<body>
+
+<h1>WÖRTERRATEN</h1>
+<p id="anleitung">Errate das 5-Buchstaben-Wort in 6 Versuchen. Grün = richtiger Buchstabe an richtiger Stelle. Gelb = Buchstabe kommt vor, aber an anderer Stelle. Grau = Buchstabe kommt nicht vor.</p>
+
+<div id="controls">
+  <button class="action" onclick="neuesSpiel()">Neues Spiel</button>
+</div>
+
+<div id="message"></div>
+<div id="board"></div>
+
+<div id="keyboard"></div>
+
+<script>
+const WOERTER = [
+  "HAUSE","APFEL","BIRNE","KATZE","MAUS","STUHL","TISCH","LAMPE","FENSTER",
+  "GARTEN","BLUME","WOLKE","SONNE","MONDE","STERN","WASSER","FEUER","ERDE",
+  "PFERD","VOGEL","FISCH","BAUM","BLATT","BROT","MILCH","KAESE","ZUCKER",
+  "SALZ","PFEFFER","OFEN","HERD","TOPF","LOEFFEL","GABEL","MESSER","TELLER",
+  "SCHUH","HEMD","HOSE","JACKE","MANTEL","MUETZE","HANDS","ARMEN","BEINE",
+  "KOPFE","HERZE","LEBER","NIERE","MAGEN"
+].filter(w => w.length === 5);
+
+let loesung = "";
+let versuch = 0;
+let position = 0;
+let raster = [];
+let spielVorbei = false;
+
+const board = document.getElementById("board");
+const message = document.getElementById("message");
+const keyboardDiv = document.getElementById("keyboard");
+
+const tastenReihen = [
+  "QWERTZUIOP".split(""),
+  "ASDFGHJKL".split(""),
+  ["ENTER", ..."YXCVBNM".split(""), "⌫"]
+];
+
+function baueBrett() {
+  board.innerHTML = "";
+  raster = [];
+  for (let r = 0; r < 6; r++) {
+    const row = document.createElement("div");
+    row.className = "row";
+    const rowTiles = [];
+    for (let c = 0; c < 5; c++) {
+      const tile = document.createElement("div");
+      tile.className = "tile";
+      row.appendChild(tile);
+      rowTiles.push(tile);
+    }
+    board.appendChild(row);
+    raster.push(rowTiles);
+  }
+}
+
+function baueTastatur() {
+  keyboardDiv.innerHTML = "";
+  tastenReihen.forEach(reihe => {
+    const row = document.createElement("div");
+    row.className = "kb-row";
+    reihe.forEach(taste => {
+      const btn = document.createElement("button");
+      btn.className = "key" + (taste.length > 1 ? " wide" : "");
+      btn.textContent = taste;
+      btn.dataset.key = taste;
+      btn.addEventListener("click", () => tasteGedrueckt(taste));
+      row.appendChild(btn);
+    });
+    keyboardDiv.appendChild(row);
+  });
+}
+
+function neuesSpiel() {
+  loesung = WOERTER[Math.floor(Math.random() * WOERTER.length)];
+  versuch = 0;
+  position = 0;
+  spielVorbei = false;
+  message.textContent = "";
+  baueBrett();
+  baueTastatur();
+  console.log("Lösung (Debug):", loesung);
+}
+
+function tasteGedrueckt(taste) {
+  if (spielVorbei) return;
+  if (taste === "ENTER") {
+    wortPruefen();
+  } else if (taste === "⌫") {
+    buchstabeLoeschen();
+  } else if (/^[A-ZÄÖÜ]$/.test(taste)) {
+    buchstabeEingeben(taste);
+  }
+}
+
+function buchstabeEingeben(buchstabe) {
+  if (position < 5) {
+    const tile = raster[versuch][position];
+    tile.textContent = buchstabe;
+    tile.classList.add("filled", "pop");
+    setTimeout(() => tile.classList.remove("pop"), 150);
+    position++;
+  }
+}
+
+function buchstabeLoeschen() {
+  if (position > 0) {
+    position--;
+    const tile = raster[versuch][position];
+    tile.textContent = "";
+    tile.classList.remove("filled");
+  }
+}
+
+function wortPruefen() {
+  if (position < 5) {
+    zeigeNachricht("Nicht genug Buchstaben");
+    return;
+  }
+  const eingabe = raster[versuch].map(t => t.textContent).join("");
+
+  const ergebnis = auswerten(eingabe, loesung);
+  ergebnis.forEach((status, i) => {
+    setTimeout(() => {
+      raster[versuch][i].classList.add(status);
+      tastenFarbeSetzen(eingabe[i], status);
+    }, i * 200);
+  });
+
+  setTimeout(() => {
+    if (eingabe === loesung) {
+      zeigeNachricht("Richtig! Das Wort war " + loesung);
+      spielVorbei = true;
+    } else if (versuch === 5) {
+      zeigeNachricht("Verloren! Das Wort war " + loesung);
+      spielVorbei = true;
+    } else {
+      versuch++;
+      position = 0;
+    }
+  }, ergebnis.length * 200 + 100);
+}
+
+function auswerten(eingabe, loesung) {
+  const ergebnis = Array(5).fill("absent");
+  const loesungArr = loesung.split("");
+  const eingabeArr = eingabe.split("");
+  const genutzt = Array(5).fill(false);
+
+  for (let i = 0; i < 5; i++) {
+    if (eingabeArr[i] === loesungArr[i]) {
+      ergebnis[i] = "correct";
+      genutzt[i] = true;
+    }
+  }
+  for (let i = 0; i < 5; i++) {
+    if (ergebnis[i] === "correct") continue;
+    const idx = loesungArr.findIndex((b, j) => b === eingabeArr[i] && !genutzt[j]);
+    if (idx !== -1) {
+      ergebnis[i] = "present";
+      genutzt[idx] = true;
+    }
+  }
+  return ergebnis;
+}
+
+function tastenFarbeSetzen(buchstabe, status) {
+  const btn = [...document.querySelectorAll(".key")].find(k => k.dataset.key === buchstabe);
+  if (!btn) return;
+  if (btn.classList.contains("correct")) return;
+  if (status === "correct") {
+    btn.classList.remove("present", "absent");
+    btn.classList.add("correct");
+  } else if (status === "present" && !btn.classList.contains("correct")) {
+    btn.classList.remove("absent");
+    btn.classList.add("present");
+  } else if (status === "absent" && !btn.classList.contains("correct") && !btn.classList.contains("present")) {
+    btn.classList.add("absent");
+  }
+}
+
+function zeigeNachricht(text) {
+  message.textContent = text;
+}
+
+document.addEventListener("keydown", (e) => {
+  const taste = e.key.toUpperCase();
+  if (taste === "ENTER") tasteGedrueckt("ENTER");
+  else if (taste === "BACKSPACE") tasteGedrueckt("⌫");
+  else if (/^[A-ZÄÖÜ]$/.test(taste)) tasteGedrueckt(taste);
+});
+
+neuesSpiel();
+</script>
+
+</body>
+</html>
