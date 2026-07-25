@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>6-Buchstaben-Wordle</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background: #121213;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 16px;
+        }
+        .container {
+            background: #1a1a1b;
+            padding: 30px 20px 40px;
+            border-radius: 24px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.8);
+            max-width: 480px;
+            width: 100%;
+            text-align: center;
+        }
+        h1 {
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 2rem;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+        .sub {
+            color: #888;
+            margin-bottom: 24px;
+            font-size: 0.9rem;
+        }
+        #board {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 8px;
+            max-width: 400px;
+            margin: 0 auto 20px;
+        }
+        .tile {
+            aspect-ratio: 1 / 1;
+            background: #3a3a3c;
+            border: 2px solid #3a3a3c;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 2rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-transform: uppercase;
+            transition: all 0.15s;
+        }
+        .tile.filled {
+            border-color: #565758;
+            background: #3a3a3c;
+        }
+        .tile.correct {
+            background: #538d4e;
+            border-color: #538d4e;
+        }
+        .tile.present {
+            background: #b59f3b;
+            border-color: #b59f3b;
+        }
+        .tile.absent {
+            background: #3a3a3c;
+            border-color: #3a3a3c;
+            color: #5a5a5c;
+        }
+        #keyboard {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 6px;
+            max-width: 440px;
+            margin: 10px auto 0;
+        }
+        .key {
+            background: #818384;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 12px 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            min-width: 34px;
+            flex: 1 0 auto;
+            max-width: 44px;
+            cursor: pointer;
+            transition: 0.1s;
+            text-transform: uppercase;
+        }
+        .key:active { transform: scale(0.92); }
+        .key.wide { flex: 2 0 auto; max-width: 68px; }
+        .key.correct { background: #538d4e; }
+        .key.present { background: #b59f3b; }
+        .key.absent { background: #3a3a3c; color: #5a5a5c; }
+        #message {
+            color: #fff;
+            font-size: 1.2rem;
+            margin-top: 20px;
+            min-height: 3rem;
+            font-weight: 600;
+        }
+        #new-game {
+            background: #538d4e;
+            color: #fff;
+            border: none;
+            border-radius: 40px;
+            padding: 14px 32px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 8px;
+            transition: 0.2s;
+            display: none;
+        }
+        #new-game:hover { background: #6aaa64; }
+        .footer {
+            color: #555;
+            font-size: 0.7rem;
+            margin-top: 24px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>WORDLE</h1>
+    <div class="sub">6 Buchstaben · 6 Versuche</div>
+    <div id="board"></div>
+    <div id="keyboard"></div>
+    <div id="message"></div>
+    <button id="new-game">🔄 Neues Spiel</button>
+    <div class="footer">tippe auf deiner Tastatur</div>
+</div>
+<script>
+    (function() {
+        // ---------- 6-Buchstaben-Wortliste ----------
+        const WORDS = [
+            "APFEL", "BAUM", "BLUME", "BROT", "CAMEL", "CLOUD", "CRAZY",
+            "DANCE", "DREAM", "EAGLE", "FAST", "FOCUS", "GAME", "GARDEN",
+            "GOLD", "HAPPY", "HEART", "HORSE", "HOUSE", "JAZZ", "LIGHT",
+            "LOVE", "LUCKY", "MOON", "MUSIC", "OCEAN", "PEACE", "PIANO",
+            "PINK", "PIZZA", "PLANET", "RADIO", "RAINBOW", "ROBOT", "ROCK",
+            "SMILE", "STAR", "STORM", "SUN", "SWEET", "THUNDER", "TIGER",
+            "TOWER", "TREE", "WATER", "WINTER", "WOLF", "WORLD", "YOUTH"
+        ].filter(w => w.length === 6).map(w => w.toUpperCase());
+
+        // ------- Zustand -------
+        const MAX_ATTEMPTS = 6;
+        const WORD_LENGTH = 6;
+        let solution = '';
+        let guesses = [];
+        let currentGuess = '';
+        let gameOver = false;
+        let currentRow = 0;
+
+        // DOM-Referenzen
+        const boardEl = document.getElementById('board');
+        const keyboardEl = document.getElementById('keyboard');
+        const messageEl = document.getElementById('message');
+        const newGameBtn = document.getElementById('new-game');
+
+        // ------- Tastatur-Layout -------
+        const ROWS = [
+            ['Q','W','E','R','T','Z','U','I','O','P'],
+            ['A','S','D','F','G','H','J','K','L'],
+            ['BACK','Y','X','C','V','B','N','M','ENTER']
+        ];
+
+        // ------- Board rendern -------
+        function renderBoard() {
+            boardEl.innerHTML = '';
+            for (let r = 0; r < MAX_ATTEMPTS; r++) {
+                for (let c = 0; c < WORD_LENGTH; c++) {
+                    const tile = document.createElement('div');
+                    tile.className = 'tile';
+                    tile.dataset.row = r;
+                    tile.dataset.col = c;
+
+                    // Buchstaben füllen
+                    if (r < guesses.length) {
+                        const word = guesses[r];
+                        tile.textContent = word[c] || '';
+                        tile.classList.add('filled');
+                        // Farben
+                        const letter = word[c];
+                        if (letter) {
+                            if (letter === solution[c]) {
+                                tile.classList.add('correct');
+                            } else if (solution.includes(letter)) {
+                                tile.classList.add('present');
+                            } else {
+                                tile.classList.add('absent');
+                            }
+                        }
+                    } else if (r === guesses.length) {
+                        // Aktuelle Zeile
+                        if (c < currentGuess.length) {
+                            tile.textContent = currentGuess[c];
+                            tile.classList.add('filled');
+                        }
+                    }
+                    boardEl.appendChild(tile);
+                }
+            }
+            updateKeyboardColors();
+        }
+
+        // ------- Tastatur-Farben aktualisieren -------
+        function updateKeyboardColors() {
+            const keyMap = {};
+            for (let g of guesses) {
+                for (let i = 0; i < g.length; i++) {
+                    const letter = g[i];
+                    if (!keyMap[letter]) keyMap[letter] = 'absent';
+                    if (letter === solution[i]) {
+                        keyMap[letter] = 'correct';
+                    } else if (solution.includes(letter) && keyMap[letter] !== 'correct') {
+                        keyMap[letter] = 'present';
+                    }
+                }
+            }
+            document.querySelectorAll('.key').forEach(key => {
+                const letter = key.dataset.key;
+                if (!letter) return;
+                key.className = 'key';
+                if (keyMap[letter]) key.classList.add(keyMap[letter]);
+                if (letter === 'BACK' || letter === 'ENTER') key.classList.add('wide');
+            });
+        }
+
+        // ------- Tastatur bauen -------
+        function buildKeyboard() {
+            keyboardEl.innerHTML = '';
+            for (let row of ROWS) {
+                for (let key of row) {
+                    const btn = document.createElement('button');
+                    btn.className = 'key';
+                    if (key === 'BACK' || key === 'ENTER') btn.classList.add('wide');
+                    btn.textContent = key === 'BACK' ? '←' : key;
+                    btn.dataset.key = key;
+                    btn.addEventListener('click', () => handleKey(key));
+                    keyboardEl.appendChild(btn);
+                }
+            }
+        }
+
+        // ------- Eingabe verarbeiten -------
+        function handleKey(key) {
+            if (gameOver) return;
+            if (guesses.length >= MAX_ATTEMPTS) return;
+
+            if (key === 'ENTER') {
+                if (currentGuess.length < WORD_LENGTH) {
+                    setMessage('Zu kurz!');
+                    return;
+                }
+                // Prüfen, ob Wort existiert (optional: Nur aus Wortliste)
+                if (!WORDS.includes(currentGuess)) {
+                    setMessage('Unbekanntes Wort');
+                    return;
+                }
+                // Gültig -> speichern
+                guesses.push(currentGuess);
+                currentGuess = '';
+                currentRow++;
+                renderBoard();
+
+                // Prüfen ob gewonnen
+                if (guesses[guesses.length - 1] === solution) {
+                    setMessage('🎉 Super! Du hast gewonnen!');
+                    gameOver = true;
+                    newGameBtn.style.display = 'inline-block';
+                    return;
+                }
+                if (guesses.length === MAX_ATTEMPTS) {
+                    setMessage(`😢 Verloren! Lösung: ${solution}`);
+                    gameOver = true;
+                    newGameBtn.style.display = 'inline-block';
+                    return;
+                }
+                setMessage('');
+                renderBoard();
+                return;
+            }
+
+            if (key === 'BACK') {
+                if (currentGuess.length > 0) {
+                    currentGuess = currentGuess.slice(0, -1);
+                    renderBoard();
+                }
+                return;
+            }
+
+            // Buchstabe
+            if (currentGuess.length < WORD_LENGTH && /^[A-Z]$/.test(key)) {
+                currentGuess += key;
+                renderBoard();
+                setMessage('');
+            }
+        }
+
+        // ------- Nachricht setzen -------
+        function setMessage(msg) {
+            messageEl.textContent = msg;
+        }
+
+        // ------- Neues Spiel -------
+        function newGame() {
+            // Lösung aus Wortliste
+            const available = WORDS.filter(w => w.length === 6);
+            solution = available[Math.floor(Math.random() * available.length)];
+            guesses = [];
+            currentGuess = '';
+            gameOver = false;
+            currentRow = 0;
+            setMessage('');
+            newGameBtn.style.display = 'none';
+            renderBoard();
+            // Alle Tastatur-Farben zurücksetzen
+            document.querySelectorAll('.key').forEach(k => {
+                k.className = 'key';
+                if (k.dataset.key === 'BACK' || k.dataset.key === 'ENTER') k.classList.add('wide');
+            });
+        }
+
+        // ------- Tastatur-Listener -------
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                handleKey('ENTER');
+                return;
+            }
+            if (e.key === 'Backspace') {
+                e.preventDefault();
+                handleKey('BACK');
+                return;
+            }
+            const key = e.key.toUpperCase();
+            if (key.length === 1 && key >= 'A' && key <= 'Z') {
+                handleKey(key);
+            }
+        });
+
+        // ------- Start -------
+        buildKeyboard();
+        // Fallback falls Wortliste leer – dann statisch
+        if (WORDS.length === 0) {
+            // Notfall-Liste
+            WORDS.push('APFEL', 'BAUM', 'BLUME', 'BROT', 'CAMEL', 'CLOUD', 'CRAZY',
+                'DANCE', 'DREAM', 'EAGLE', 'FAST', 'FOCUS', 'GAME', 'GARDEN',
+                'GOLD', 'HAPPY', 'HEART', 'HORSE', 'HOUSE', 'JAZZ', 'LIGHT',
+                'LOVE', 'LUCKY', 'MOON', 'MUSIC', 'OCEAN', 'PEACE', 'PIANO',
+                'PINK', 'PIZZA', 'PLANET', 'RADIO', 'RAINBOW', 'ROBOT', 'ROCK',
+                'SMILE', 'STAR', 'STORM', 'SUN', 'SWEET', 'THUNDER', 'TIGER',
+                'TOWER', 'TREE', 'WATER', 'WINTER', 'WOLF', 'WORLD', 'YOUTH'
+            ).filter(w => w.length === 6).map(w => w.toUpperCase());
+        }
+        newGame();
+        newGameBtn.addEventListener('click', newGame);
+    })();
+</script>
+</body>
+</html>
