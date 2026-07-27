@@ -153,11 +153,11 @@
 
 <script>
 const WOERTER = [
-  "HAUSE","APFEL","BIRNE","KATZE","MAUS","STUHL","TISCH","LAMPE","FENSTER",
-  "GARTEN","BLUME","WOLKE","SONNE","MONDE","STERN","WASSER","FEUER","ERDE",
-  "PFERD","VOGEL","FISCH","BAUM","BLATT","BROT","MILCH","KAESE","ZUCKER",
-  "SALZ","PFEFFER","OFEN","HERD","TOPF","LOEFFEL","GABEL","MESSER","TELLER",
-  "SCHUH","HEMD","HOSE","JACKE","MANTEL","MUETZE","HANDS","ARMEN","BEINE",
+  "HAUSE","APFEL","BIRNE","KATZE","RATTE","STUHL","TISCH","LAMPE","KAMIN",
+  "HECKE","BLUME","WOLKE","SONNE","MONDE","STERN","REGEN","FEUER","STAUB",
+  "PFERD","VOGEL","FISCH","TANNE","BLATT","TORTE","MILCH","KAESE","HONIG",
+  "SALZE","CHILI","OEFEN","HERDE","DOSEN","KELLE","GABEL","SAEGE","TASSE",
+  "SCHUH","SOCKE","HOSEN","JACKE","SCHAL","HAUBE","HANDS","ARMEN","BEINE",
   "KOPFE","HERZE","LEBER","NIERE","MAGEN",
   // 50 zusätzliche Wörter
   "ANGEL","BADEN","BAUCH","BERGE","BESEN","BIENE","BODEN","BRIEF","BUCHE","DACHS",
@@ -223,7 +223,7 @@ function neuesSpiel() {
   versuch = 0;
   position = 0;
   spielVorbei = false;
-  message.textContent = "";
+  zeigeNachricht("");
   baueBrett();
   baueTastatur();
   console.log("Lösung (Debug):", loesung);
