@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gamechanger — Personaltraining Fußball Wolfsburg | Olcay Irek &amp; Mohamed Dallali</title>
+<meta name="description" content="Gamechanger: 1:1 Personaltraining und Kleingruppentraining für Fußballer jeden Alters in Wolfsburg. Trainiert von Olcay Irek und Mohamed Dallali (ehem. VfL Wolfsburg U19).">
+<link rel="canonical" href="https://gamechanger-wolfsburg.netlify.app/">
+<meta name="theme-color" content="#12171A">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Gamechanger — Personaltraining Fußball Wolfsburg">
+<meta property="og:description" content="1:1 Personaltraining und Kleingruppentraining im Fußball für alle Altersklassen in Wolfsburg.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="de_DE">
+<meta property="og:url" content="https://gamechanger-wolfsburg.netlify.app/">
+<meta property="og:image" content="https://gamechanger-wolfsburg.netlify.app/images/stadion-west.jpg">
+<meta property="og:image:alt" content="Luftaufnahme des Stadion West in Wolfsburg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Gamechanger — Personaltraining Fußball Wolfsburg">
+<meta name="twitter:description" content="1:1 Personaltraining und Kleingruppentraining im Fußball für alle Altersklassen in Wolfsburg.">
+<meta name="twitter:image" content="https://gamechanger-wolfsburg.netlify.app/images/stadion-west.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2312171A'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%23F2A93C' stroke-width='3'/%3E%3C/svg%3E">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SportsActivityLocation",
+  "name": "Gamechanger",
+  "url": "https://gamechanger-wolfsburg.netlify.app/",
+  "image": "https://gamechanger-wolfsburg.netlify.app/images/stadion-west.jpg",
+  "description": "Personaltraining und Kleingruppentraining im Fußball für alle Altersklassen in Wolfsburg und Umgebung.",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Rügener Weg 12",
+    "postalCode": "38440",
+    "addressLocality": "Wolfsburg",
+    "addressRegion": "Niedersachsen",
+    "addressCountry": "DE"
+  },
+  "geo": { "@type": "GeoCoordinates", "latitude": 52.428, "longitude": 10.777 },
+  "containedInPlace": { "@type": "Place", "name": "Stadion West Wolfsburg" },
+  "areaServed": "Wolfsburg und Umgebung",
+  "sameAs": ["https://www.instagram.com/olcayirek/"],
+  "employee": [
+    { "@type": "Person", "name": "Olcay Irek", "jobTitle": "Trainer" },
+    { "@type": "Person", "name": "Mohamed Dallali", "jobTitle": "Trainer" }
+  ]
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #12171A;
+    --bg-panel: #1B2224;
+    --bg-panel-raised: #212A2C;
+    --line: rgba(244,243,238,0.10);
+    --line-strong: rgba(244,243,238,0.18);
+    --ink: #F4F3EE;
+    --ink-dim: #B9C0BA;
+    --ink-faint: #8B9591;
+    --amber: #F2A93C;
+    --amber-dim: #8a6528;
+    --sage: #7C9B82;
+    --sage-deep: #3E5443;
+    --danger: #E2685A;
+    --radius: 2px;
+    --maxw: 1180px;
+    --nav-h: 76px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter', system-ui, sans-serif;
+    font-size:16px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{ background:var(--amber); color:#12171A; }
+  a{ color:inherit; }
+  img{max-width:100%; display:block;}
+  .wrap{ max-width:var(--maxw); margin:0 auto; padding:0 24px; }
+  h1,h2,h3,h4{
+    font-family:'Anton', 'Inter', sans-serif; font-weight:400; letter-spacing:0.01em;
+    text-transform:uppercase; margin:0;
+    /* Lange deutsche Komposita duerfen die Spalte nicht aufsprengen, falls Anton nicht laedt */
+    overflow-wrap:break-word; hyphens:auto;
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--amber);
+    display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+  }
+  .eyebrow::before{ content:""; width:22px; height:1px; background:var(--amber); display:inline-block; flex-shrink:0; }
+  p.lede{ color:var(--ink-dim); font-size:17px; max-width:52ch; }
+  :focus-visible{ outline:2px solid var(--amber); outline-offset:3px; }
+
+  .skip-link{
+    position:absolute; left:16px; top:-100px; z-index:100;
+    background:var(--amber); color:#181203; padding:12px 20px; border-radius:var(--radius);
+    font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:600; text-decoration:none;
+    transition:top .2s ease;
+  }
+  .skip-link:focus{ top:16px; }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important; }
+  }
+
+  /* ---------- NAV ---------- */
+  header.site{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    background:rgba(18,23,26,0.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{ display:flex; align-items:center; justify-content:space-between; height:var(--nav-h); gap:16px; }
+  .brand{ display:flex; align-items:center; gap:10px; font-family:'Anton', sans-serif; font-size:20px; letter-spacing:0.02em; text-decoration:none; flex-shrink:0; }
+  .brand .num{
+    width:30px; height:30px; border:1.5px solid var(--amber); color:var(--amber);
+    display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono', monospace;
+    font-size:13px; border-radius:50%; flex-shrink:0;
+  }
+  nav.links{ display:flex; gap:32px; font-size:14px; }
+  nav.links a{
+    text-decoration:none; color:var(--ink-dim); font-weight:500;
+    padding:6px 0; border-bottom:1px solid transparent; transition:color .2s, border-color .2s;
+  }
+  nav.links a:hover{ color:var(--ink); border-color:var(--amber); }
+  .nav-cta{
+    font-family:'IBM Plex Mono', monospace; font-size:13px; letter-spacing:0.04em;
+    background:var(--amber); color:#181203; padding:11px 20px; text-decoration:none;
+    border-radius:var(--radius); font-weight:600; white-space:nowrap;
+  }
+  .burger{
+    display:none; background:none; border:1px solid var(--line-strong); color:var(--ink);
+    width:44px; height:44px; border-radius:var(--radius); cursor:pointer; flex-shrink:0;
+    font-size:18px; line-height:1;
+  }
+  @media (max-width:860px){
+    nav.links{ display:none; }
+    header.site .nav-cta{ display:none; }
+    .burger{ display:block; }
+  }
+
+  /* mobile drawer */
+  #mobileDrawer{
+    position:fixed; inset:var(--nav-h) 0 0 0; background:var(--bg); z-index:49;
+    transform:translateX(100%); transition:transform .3s ease, visibility .3s ease;
+    padding:32px 24px; overflow-y:auto; visibility:hidden;
+  }
+  #mobileDrawer.open{ transform:translateX(0); visibility:visible; }
+  #mobileDrawer a{
+    display:block; padding:16px 0; border-bottom:1px solid var(--line);
+    text-decoration:none; font-family:'Anton',sans-serif; font-size:22px; text-transform:uppercase; color:var(--ink);
+  }
+  /* Padding explizit setzen: `#mobileDrawer a` ist spezifischer als `.nav-cta` und wuerde es sonst platt machen */
+  #mobileDrawer .nav-cta{
+    display:inline-block; margin-top:24px; border-bottom:none; padding:14px 22px;
+    font-family:'IBM Plex Mono',monospace; font-size:14px; text-transform:none; color:#181203;
+  }
+  body.drawer-open{ overflow:hidden; }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative; padding:calc(var(--nav-h) + 72px) 0 88px; overflow:hidden;
+    background:
+      radial-gradient(ellipse 900px 500px at 82% -10%, rgba(242,169,60,0.14), transparent 60%),
+      linear-gradient(180deg, #12171A 0%, #12171A 100%);
+    border-bottom:1px solid var(--line);
+  }
+  #drillCanvas{
+    position:absolute; inset:0; width:100%; height:100%;
+    z-index:0; opacity:0; transition:opacity 1.2s ease; pointer-events:none;
+  }
+  #drillCanvas.ready{ opacity:0.6; }
+  /* Scrim: hält die Headline lesbar, egal wo sich die 3D-Animation gerade befindet */
+  .hero::after{
+    content:""; position:absolute; inset:0; z-index:1; pointer-events:none;
+    background:linear-gradient(100deg,
+      var(--bg) 0%,
+      rgba(18,23,26,0.94) 26%,
+      rgba(18,23,26,0.55) 55%,
+      rgba(18,23,26,0.10) 78%,
+      transparent 100%);
+  }
+  .hero .wrap{ position:relative; z-index:2; }
+  .hero-grid{ display:grid; grid-template-columns:1.15fr 0.85fr; gap:56px; align-items:end; }
+  .hero-grid > *{ min-width:0; }
+  .hero h1{ font-size:clamp(42px, 7vw, 92px); line-height:0.94; color:var(--ink); }
+  .hero h1 .accent{ color:var(--amber); }
+  .hero-sub{ margin-top:24px; }
+  .hero-actions{ display:flex; gap:16px; margin-top:36px; flex-wrap:wrap; }
+  @media (max-width:860px){
+    .hero{ padding:calc(var(--nav-h) + 48px) 0 64px; }
+    .hero-grid{ grid-template-columns:1fr; gap:40px; align-items:start; }
+    #drillCanvas.ready{ opacity:0.4; }
+    .hero::after{
+      background:linear-gradient(175deg,
+        rgba(18,23,26,0.95) 0%,
+        rgba(18,23,26,0.88) 45%,
+        rgba(18,23,26,0.45) 75%,
+        rgba(18,23,26,0.15) 100%);
+    }
+  }
+
+  .btn{
+    font-family:'IBM Plex Mono', monospace; font-size:13.5px; letter-spacing:0.03em;
+    padding:15px 26px; text-decoration:none; border-radius:var(--radius); font-weight:600;
+    display:inline-flex; align-items:center; gap:10px; transition:transform .15s ease, background .2s ease;
+    border:1px solid transparent; cursor:pointer;
+  }
+  .btn:hover{ transform:translateY(-2px); }
+  .btn-primary{ background:var(--amber); color:#181203; }
+  .btn-primary:hover{ background:#f7b955; }
+  .btn-ghost{ background:transparent; border-color:var(--line-strong); color:var(--ink); }
+  .btn-ghost:hover{ border-color:var(--amber); }
+
+  .lineup-card{
+    background:rgba(27,34,36,0.82); backdrop-filter:blur(6px);
+    border:1px solid var(--line); border-radius:var(--radius);
+    padding:22px; font-family:'IBM Plex Mono', monospace; font-size:13px;
+  }
+  .lineup-card .row{ display:flex; justify-content:space-between; gap:16px; padding:9px 0; border-bottom:1px solid var(--line); color:var(--ink-dim); }
+  .lineup-card .row:last-child{ border-bottom:none; }
+  .lineup-card .row b{ color:var(--ink); font-weight:600; text-align:right; }
+  .lineup-card .head{ display:flex; justify-content:space-between; gap:16px; margin-bottom:14px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:0.08em; font-size:11px; }
+
+  /* ---------- SECTION SHELL ---------- */
+  section{ padding:100px 0; border-bottom:1px solid var(--line); scroll-margin-top:var(--nav-h); }
+  .section-head{
+    display:grid; grid-template-columns:minmax(0,1fr) minmax(0,0.85fr);
+    gap:32px 48px; align-items:end; margin-bottom:56px;
+  }
+  .section-head > *{ min-width:0; }
+  .section-head h2{ font-size:clamp(30px,4.2vw,52px); }
+  .section-head p.lede{ margin:0; padding-bottom:6px; }
+  .section-head.single{ grid-template-columns:1fr; }
+  @media (max-width:860px){
+    section{ padding:72px 0; }
+    .section-head{ grid-template-columns:1fr; gap:20px; margin-bottom:40px; }
+  }
+  .reveal{ opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease; }
+  .reveal.in{ opacity:1; transform:none; }
+
+  /* ---------- LEISTUNGEN ---------- */
+  .services{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line); }
+  .service{ background:var(--bg); padding:40px 32px; min-width:0; }
+  .service .tag{ font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--sage); letter-spacing:0.08em; }
+  .service h3{ font-size:26px; margin:14px 0 12px; font-family:'Anton',sans-serif; text-transform:uppercase; }
+  .service p{ color:var(--ink-dim); font-size:15px; margin:0; }
+  @media (max-width:860px){ .services{ grid-template-columns:1fr; } .service{ padding:32px 24px; } }
+
+  /* ---------- TRAINER / STARTELF ---------- */
+  .coaches{ display:grid; grid-template-columns:1fr 1fr; gap:2px; background:var(--line); border:1px solid var(--line); }
+  .coach{ background:var(--bg-panel); display:flex; flex-direction:column; min-width:0; }
+  .coach-photo{ aspect-ratio:4/5; max-height:460px; overflow:hidden; position:relative; background:var(--bg-panel-raised); }
+  .coach-photo img{ width:100%; height:100%; object-fit:cover; object-position:center 22%; filter:grayscale(.25) contrast(1.05); }
+  .coach-photo .shirt-no{
+    position:absolute; top:16px; left:16px; z-index:2; width:44px; height:44px; border-radius:50%;
+    background:rgba(18,23,26,0.72); border:1px solid var(--amber); color:var(--amber);
+    display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono',monospace; font-weight:600;
+    backdrop-filter:blur(4px);
+  }
+  .coach-body{ padding:26px 28px 32px; }
+  .coach-body .role{ font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--amber); letter-spacing:.08em; text-transform:uppercase; }
+  .coach-body h3{ font-size:30px; margin:8px 0 14px; }
+  .coach-body p{ color:var(--ink-dim); font-size:15px; margin:0; }
+  .coach-stats{ display:flex; gap:22px; margin-top:18px; flex-wrap:wrap; }
+  .coach-stats div{ font-family:'IBM Plex Mono',monospace; }
+  .coach-stats .v{ color:var(--ink); font-size:15px; }
+  .coach-stats .l{ color:var(--ink-faint); font-size:11px; text-transform:uppercase; letter-spacing:.06em; }
+  @media (max-width:860px){ .coaches{ grid-template-columns:1fr; } .coach-photo{ max-height:420px; } }
+
+  /* ---------- WARUM ---------- */
+  .why{ display:grid; grid-template-columns:repeat(4,1fr); gap:32px; }
+  .why-item{ min-width:0; }
+  .why-item .n{ font-family:'IBM Plex Mono',monospace; color:var(--amber); font-size:13px; }
+  .why-item h4{ font-family:'Anton',sans-serif; font-weight:400; text-transform:uppercase; font-size:19px; margin:10px 0 8px; }
+  .why-item p{ color:var(--ink-dim); font-size:14.5px; margin:0; }
+  @media (max-width:860px){ .why{ grid-template-columns:1fr 1fr; gap:28px; } }
+  @media (max-width:560px){ .why{ grid-template-columns:1fr; } }
+
+  /* ---------- STANDORT ---------- */
+  .location{ display:grid; grid-template-columns:0.9fr 1.1fr; gap:48px; align-items:stretch; }
+  .location > *{ min-width:0; }
+  .location-info .row{ display:flex; gap:14px; padding:16px 0; border-bottom:1px solid var(--line); }
+  .location-info .row .k{ width:120px; flex-shrink:0; font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.06em; padding-top:2px; }
+  .location-info .row .v{ font-size:15px; color:var(--ink); min-width:0; }
+  .map-embed{ border:1px solid var(--line); min-height:340px; background:var(--bg-panel); }
+  .map-embed iframe{ width:100%; height:100%; min-height:340px; border:0; filter:grayscale(0.4) invert(0.92) contrast(0.9); }
+  .venue{ margin:48px 0 0; border:1px solid var(--line); position:relative; overflow:hidden; }
+  .venue img{ width:100%; aspect-ratio:16/10; object-fit:cover; display:block; filter:saturate(0.85) contrast(1.03); }
+  .venue figcaption{
+    position:absolute; left:0; right:0; bottom:0; padding:22px 24px;
+    background:linear-gradient(180deg, transparent, rgba(18,23,26,0.92));
+    font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--ink); letter-spacing:.02em;
+  }
+  @media (max-width:860px){ .location{ grid-template-columns:1fr; gap:32px; } }
+  @media (max-width:560px){
+    .venue img{ aspect-ratio:4/3; }
+    .venue figcaption{ font-size:12px; padding:16px; }
+    .location-info .row{ flex-direction:column; gap:6px; }
+    .location-info .row .k{ width:auto; }
+  }
+
+  /* ---------- INSTAGRAM ---------- */
+  .insta{ display:flex; justify-content:space-between; align-items:center; gap:32px; flex-wrap:wrap; background:var(--bg-panel); border:1px solid var(--line); padding:44px; }
+  .insta a.handle{ font-family:'Anton',sans-serif; font-size:28px; text-decoration:none; color:var(--ink); display:inline-block; margin-top:10px; }
+  .insta a.handle span{ color:var(--amber); }
+  .insta a.handle:hover{ color:var(--amber); }
+  @media (max-width:560px){ .insta{ padding:32px 24px; } }
+
+  /* ---------- KONTAKT ---------- */
+  .contact-grid{ display:grid; grid-template-columns:1fr 1fr; gap:64px; }
+  .contact-grid > *{ min-width:0; }
+  form.contact{ display:flex; flex-direction:column; gap:18px; }
+  .field{ display:flex; flex-direction:column; gap:8px; }
+  .field label{ font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint); }
+  .field input, .field select, .field textarea{
+    background:var(--bg-panel); border:1px solid var(--line-strong); color:var(--ink);
+    padding:13px 14px; font-family:'Inter',sans-serif; font-size:15px; border-radius:var(--radius); width:100%;
+  }
+  .field textarea{ resize:vertical; min-height:110px; }
+  .field input:focus, .field select:focus, .field textarea:focus{ outline:none; border-color:var(--amber); box-shadow:0 0 0 2px rgba(242,169,60,0.25); }
+  .field .err{ color:var(--danger); font-size:12.5px; display:none; font-family:'IBM Plex Mono',monospace; }
+  .field.invalid input, .field.invalid select, .field.invalid textarea{ border-color:var(--danger); }
+  .field.invalid .err{ display:block; }
+  .row2{ display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+  @media (max-width:560px){ .row2{ grid-template-columns:1fr; } }
+  .form-note{ font-size:12.5px; color:var(--ink-faint); font-family:'IBM Plex Mono',monospace; line-height:1.6; border-left:2px solid var(--amber-dim); padding-left:12px; }
+  .contact-side .row{ display:flex; gap:16px; padding:18px 0; border-bottom:1px solid var(--line); }
+  .contact-side .row .k{ font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--ink-faint); width:100px; flex-shrink:0; text-transform:uppercase; padding-top:2px;}
+  .contact-side .row .v{ min-width:0; }
+  .contact-side a{ text-decoration:none; }
+  .contact-side a:hover{ color:var(--amber); }
+  .form-success{ display:none; border:1px solid var(--sage); background:var(--sage-deep); color:var(--ink); padding:16px 18px; font-size:14px; border-radius:var(--radius); margin-bottom:18px; }
+  .form-success.show{ display:block; }
+  .form-success.error{ background:transparent; border-color:var(--danger); }
+  @media (max-width:860px){ .contact-grid{ grid-template-columns:1fr; gap:48px; } }
+
+  /* Markierung für Daten, die noch nachgetragen werden müssen */
+  .todo{
+    font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--amber);
+    border:1px dashed var(--amber-dim); border-radius:var(--radius); padding:2px 8px;
+    display:inline-block; letter-spacing:.04em;
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{ padding:48px 0; }
+  .foot-grid{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px; }
+  .foot-links{ display:flex; gap:24px; font-size:13px; color:var(--ink-faint); flex-wrap:wrap; }
+  .foot-links a{ text-decoration:none; color:var(--ink-faint); }
+  .foot-links a:hover{ color:var(--ink); }
+  .foot-brand{ font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--ink-faint); }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#leistungen">Zum Inhalt springen</a>
+
+<header class="site">
+  <div class="wrap nav">
+    <a href="#top" class="brand"><span class="num" aria-hidden="true">10</span>GAMECHANGER</a>
+    <nav class="links" aria-label="Hauptnavigation">
+      <a href="#leistungen">Leistungen</a>
+      <a href="#trainer">Trainer</a>
+      <a href="#warum">Warum wir</a>
+      <a href="#standort">Standort</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+    <a href="#kontakt" class="nav-cta">Probetraining anfragen</a>
+    <button class="burger" id="burgerBtn" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobileDrawer">☰</button>
+  </div>
+</header>
+
+<div id="mobileDrawer" inert>
+  <nav aria-label="Mobile Navigation">
+    <a href="#leistungen">Leistungen</a>
+    <a href="#trainer">Trainer</a>
+    <a href="#warum">Warum wir</a>
+    <a href="#standort">Standort</a>
+    <a href="#kontakt">Kontakt</a>
+  </nav>
+  <a href="#kontakt" class="nav-cta">Probetraining anfragen</a>
+</div>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <canvas id="drillCanvas" aria-hidden="true"></canvas>
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow">Personaltraining · Wolfsburg &amp; Umgebung</div>
+        <h1 style="margin-top:18px;">Dein Spiel.<br>Dein <span class="accent">Gamechanger.</span></h1>
+        <p class="lede hero-sub">1:1 Personaltraining und Kleingruppentraining im Fußball — für Kinder, Jugendliche und Erwachsene. Geleitet von zwei Trainern mit echter Erfahrung aus dem Leistungsfußball.</p>
+        <div class="hero-actions">
+          <a href="#kontakt" class="btn btn-primary">Probetraining anfragen →</a>
+          <a href="#trainer" class="btn btn-ghost">Trainer kennenlernen</a>
+        </div>
+      </div>
+      <div class="lineup-card reveal">
+        <div class="head"><span>Startaufstellung</span><span>Gamechanger</span></div>
+        <div class="row"><span>Trainer</span><b>Olcay Irek</b></div>
+        <div class="row"><span>Trainer</span><b>Mohamed Dallali</b></div>
+        <div class="row"><span>Format</span><b>Einzel · Kleingruppe</b></div>
+        <div class="row"><span>Zielgruppe</span><b>Alle Altersklassen</b></div>
+        <div class="row"><span>Basis</span><b>Wolfsburg</b></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEISTUNGEN -->
+  <section id="leistungen">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div>
+          <div class="eyebrow">Leistungen</div>
+          <h2 style="margin-top:14px;">Training, das zu dir passt</h2>
+        </div>
+        <p class="lede">Ob Einzeltraining mit vollem Fokus oder Kleingruppe mit Trainingspartnern — jedes Format ist auf Alter und Leistungsstand zugeschnitten.</p>
+      </div>
+      <div class="services reveal">
+        <div class="service">
+          <div class="tag">01 / EINZELTRAINING</div>
+          <h3>1:1 Personaltraining</h3>
+          <p>Individueller Trainingsplan, volle Aufmerksamkeit, gezielte Arbeit an Technik, Schnelligkeit und Spielverständnis — abgestimmt auf dein Alter und deinen Stand.</p>
+        </div>
+        <div class="service">
+          <div class="tag">02 / GRUPPE</div>
+          <h3>Kleingruppentraining</h3>
+          <p>Training in kleinen, leistungsähnlichen Gruppen. Gemeinsam schneller besser werden — mit Wettkampfmomenten, die im Einzeltraining fehlen.</p>
+        </div>
+        <div class="service">
+          <div class="tag">03 / ALTERSKLASSEN</div>
+          <h3>Für jedes Alter</h3>
+          <p>Schwerpunkt liegt auf Kindern und Jugendlichen im Aufbau — Erwachsene und ambitionierte Freizeitspieler sind ebenso willkommen.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRAINER -->
+  <section id="trainer">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div>
+          <div class="eyebrow">Die Startelf</div>
+          <h2 style="margin-top:14px;">Zwei Trainer, ein Anspruch</h2>
+        </div>
+        <p class="lede">Beide bringen praktische Erfahrung aus dem Leistungsfußball mit ins Training — nicht nur Theorie.</p>
+      </div>
+
+      <div class="coaches reveal">
+        <div class="coach">
+          <div class="coach-photo">
+            <span class="shirt-no" aria-hidden="true">10</span>
+            <img src="images/olcay-irek.jpg" width="1000" height="1009" loading="lazy" decoding="async"
+                 alt="Olcay Irek, Trainer und Gründer von Gamechanger, auf dem Sportplatz">
+          </div>
+          <div class="coach-body">
+            <div class="role">Trainer &amp; Gründer</div>
+            <h3>Olcay Irek</h3>
+            <p>Gründer von Gamechanger und erfahrener Personal Coach für Fußballer in Wolfsburg. Betreut Einzelspieler und Kleingruppen mit individuell abgestimmten Trainingsplänen.</p>
+            <div class="coach-stats">
+              <div><div class="v">Wolfsburg</div><div class="l">Standort</div></div>
+              <div><div class="v">Einzel &amp; Gruppe</div><div class="l">Format</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="coach">
+          <div class="coach-photo">
+            <span class="shirt-no" aria-hidden="true">04</span>
+            <img src="images/mohamed-dallali.jpg" width="850" height="1062" loading="lazy" decoding="async"
+                 alt="Mohamed Dallali, Trainer bei Gamechanger, auf dem Sportplatz">
+          </div>
+          <div class="coach-body">
+            <div class="role">Trainer</div>
+            <h3>Mohamed Dallali</h3>
+            <p>Ausgebildet in der Jugend des VfL Wolfsburg (U19, Under-19-Bundesliga), später aktiv beim SSV Vorsfelde. Bringt Erfahrung als Verteidiger aus dem Leistungsfußball direkt ins Training ein.</p>
+            <div class="coach-stats">
+              <div><div class="v">VfL Wolfsburg U19</div><div class="l">Ausbildung</div></div>
+              <div><div class="v">Abwehr</div><div class="l">Position</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WARUM -->
+  <section id="warum">
+    <div class="wrap">
+      <div class="section-head single reveal">
+        <div>
+          <div class="eyebrow">Warum Gamechanger</div>
+          <h2 style="margin-top:14px;">Kein Training von der Stange</h2>
+        </div>
+      </div>
+      <div class="why reveal">
+        <div class="why-item"><div class="n">01</div><h4>Praxiserfahrung</h4><p>Trainer mit eigener Laufbahn im Leistungsfußball statt reiner Theorie.</p></div>
+        <div class="why-item"><div class="n">02</div><h4>Individuell</h4><p>Trainingsinhalte richten sich nach Alter, Position und Entwicklungsstand.</p></div>
+        <div class="why-item"><div class="n">03</div><h4>Flexibel</h4><p>Terminabsprache nach Absprache — Einzel- oder Gruppentermine möglich.</p></div>
+        <div class="why-item"><div class="n">04</div><h4>Entwicklung im Fokus</h4><p>Technik, Athletik und Spielverständnis wachsen gemeinsam, Schritt für Schritt.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STANDORT -->
+  <section id="standort">
+    <div class="wrap">
+      <div class="section-head single reveal">
+        <div>
+          <div class="eyebrow">Standort</div>
+          <h2 style="margin-top:14px;">Wolfsburg &amp; Umgebung</h2>
+        </div>
+      </div>
+      <div class="location reveal">
+        <div class="location-info">
+          <div class="row"><div class="k">Trainingsort</div><div class="v">Stadion West, Rügener Weg 12, 38440 Wolfsburg</div></div>
+          <div class="row"><div class="k">Anlage</div><div class="v">Rasenplatz mit Laufbahn, zwei weitere Spielfelder, Kunstrasen</div></div>
+          <div class="row"><div class="k">Einzugsgebiet</div><div class="v">Wolfsburg und angrenzende Umgebung</div></div>
+          <div class="row"><div class="k">Parken</div><div class="v">Parkplätze direkt an der Anlage</div></div>
+          <div class="row"><div class="k">Kontakt</div><div class="v">Am schnellsten über das <a href="#kontakt" style="color:var(--amber);">Anfrageformular</a></div></div>
+        </div>
+        <div class="map-embed">
+          <iframe
+            title="Kartenausschnitt Stadion West Wolfsburg"
+            src="https://www.openstreetmap.org/export/embed.html?bbox=10.756%2C52.415%2C10.798%2C52.440&layer=mapnik&marker=52.428%2C10.777"
+            loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+      </div>
+
+      <figure class="venue reveal">
+        <img src="images/stadion-west.jpg" width="1400" height="1050" loading="lazy" decoding="async"
+             alt="Luftaufnahme des Stadion West in Wolfsburg mit Rasenplatz, Laufbahn und angrenzenden Spielfeldern">
+        <figcaption>Stadion West — hier findet der Großteil des Trainings statt.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- INSTAGRAM -->
+  <section id="social" style="padding:64px 0;">
+    <div class="wrap">
+      <div class="insta reveal">
+        <div>
+          <div class="eyebrow">Auf Instagram</div>
+          <a class="handle" href="https://www.instagram.com/olcayirek/" target="_blank" rel="noopener">@olcayirek <span aria-hidden="true">↗</span></a>
+        </div>
+        <p class="lede" style="margin:0;">Trainingseindrücke, Updates und Einblicke ins Training — folgt Gamechanger für mehr.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- KONTAKT -->
+  <section id="kontakt">
+    <div class="wrap">
+      <div class="section-head single reveal">
+        <div>
+          <div class="eyebrow">Kontakt</div>
+          <h2 style="margin-top:14px;">Probetraining anfragen</h2>
+        </div>
+      </div>
+      <div class="contact-grid reveal">
+        <div>
+          <div class="form-success" id="formSuccess" role="status" aria-live="polite"></div>
+          <form class="contact" id="contactForm" name="probetraining" method="POST"
+                data-netlify="true" netlify-honeypot="bot-field" novalidate>
+            <input type="hidden" name="form-name" value="probetraining">
+            <p style="display:none;">
+              <label>Bitte nicht ausfüllen: <input name="bot-field" tabindex="-1" autocomplete="off"></label>
+            </p>
+            <div class="row2">
+              <div class="field" data-field="name">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" autocomplete="name" required aria-describedby="err-name">
+                <span class="err" id="err-name">Bitte gib deinen Namen ein.</span>
+              </div>
+              <div class="field" data-field="alter">
+                <label for="alter">Altersklasse</label>
+                <select id="alter" name="alter" required aria-describedby="err-alter">
+                  <option value="">Bitte wählen</option>
+                  <option value="kind">Kind (bis 12)</option>
+                  <option value="jugend">Jugendlich (13–17)</option>
+                  <option value="erwachsen">Erwachsen (18+)</option>
+                </select>
+                <span class="err" id="err-alter">Bitte wähle eine Altersklasse.</span>
+              </div>
+            </div>
+            <div class="row2">
+              <div class="field" data-field="email">
+                <label for="email">E-Mail</label>
+                <input type="email" id="email" name="email" autocomplete="email" required aria-describedby="err-email">
+                <span class="err" id="err-email">Bitte gib eine gültige E-Mail-Adresse ein.</span>
+              </div>
+              <div class="field" data-field="telefon">
+                <label for="telefon">Telefon (optional)</label>
+                <input type="tel" id="telefon" name="telefon" autocomplete="tel">
+              </div>
+            </div>
+            <div class="field" data-field="format">
+              <label for="format">Interesse an</label>
+              <select id="format" name="format" required aria-describedby="err-format">
+                <option value="">Bitte wählen</option>
+                <option value="einzel">Einzeltraining</option>
+                <option value="gruppe">Kleingruppentraining</option>
+                <option value="unsicher">Noch unsicher</option>
+              </select>
+              <span class="err" id="err-format">Bitte wähle ein Format.</span>
+            </div>
+            <div class="field" data-field="nachricht">
+              <label for="nachricht">Nachricht</label>
+              <textarea id="nachricht" name="nachricht" rows="4" required aria-describedby="err-nachricht"></textarea>
+              <span class="err" id="err-nachricht">Bitte gib eine kurze Nachricht ein.</span>
+            </div>
+            <div class="form-note">
+              Mit dem Absenden stimmst du zu, dass deine Angaben zur Bearbeitung der Anfrage verarbeitet werden. Details in der <a href="datenschutz.html" style="color:var(--amber);">Datenschutzerklärung</a>.
+            </div>
+            <button type="submit" class="btn btn-primary" style="align-self:flex-start;">Anfrage senden →</button>
+          </form>
+        </div>
+        <div class="contact-side">
+          <div class="row"><div class="k">Telefon</div><div class="v"><span class="todo">noch einzutragen</span></div></div>
+          <div class="row"><div class="k">E-Mail</div><div class="v"><span class="todo">noch einzutragen</span></div></div>
+          <div class="row"><div class="k">Instagram</div><div class="v"><a href="https://www.instagram.com/olcayirek/" target="_blank" rel="noopener">@olcayirek</a></div></div>
+          <div class="row"><div class="k">Adresse</div><div class="v">Rügener Weg 12, 38440 Wolfsburg</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot-grid">
+    <div class="foot-brand">© <span id="year"></span> Gamechanger — Olcay Irek &amp; Mohamed Dallali</div>
+    <div class="foot-links">
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
+      <a href="https://www.instagram.com/olcayirek/" target="_blank" rel="noopener">Instagram</a>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+/* ---- 3D Hero: Slalom-Dribbling durch Hütchen ---- */
+(function(){
+  var canvas = document.getElementById('drillCanvas');
+  if(!canvas || typeof THREE === 'undefined') return;
+
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var renderer;
+  try {
+    renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+  } catch(e){ return; }   // Kein WebGL -> Hero bleibt wie zuvor
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+  var scene = new THREE.Scene();
+  scene.fog = new THREE.Fog(0x12171A, 14, 34);
+
+  var camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
+  camera.position.set(0, 5.2, 13.5);
+  camera.lookAt(0, 0.4, 0);
+
+  var AMBER = 0xF2A93C, SAGE = 0x7C9B82, INK = 0xF4F3EE;
+
+  scene.add(new THREE.AmbientLight(0xffffff, 0.35));
+  var key = new THREE.DirectionalLight(0xffffff, 0.75);
+  key.position.set(-6, 10, 6);
+  scene.add(key);
+  var rim = new THREE.PointLight(AMBER, 1.1, 26);
+  rim.position.set(5, 3, -3);
+  scene.add(rim);
+
+  scene.add(new THREE.GridHelper(40, 40, 0x2A3436, 0x1E2628));
+
+  var circle = new THREE.Mesh(
+    new THREE.RingGeometry(3.4, 3.45, 64),
+    new THREE.MeshBasicMaterial({ color: 0x33403F, side: THREE.DoubleSide, transparent:true, opacity:0.7 })
+  );
+  circle.rotation.x = -Math.PI/2;
+  circle.position.y = 0.01;
+  scene.add(circle);
+
+  var cones = [];
+  var coneGeo = new THREE.ConeGeometry(0.32, 0.62, 20);
+  [-6, -3, 0, 3, 6].forEach(function(z, i){
+    var cone = new THREE.Mesh(coneGeo, new THREE.MeshStandardMaterial({
+      color: i % 2 === 0 ? AMBER : SAGE, roughness: 0.55, metalness: 0.1
+    }));
+    cone.position.set(0, 0.31, z);
+    cone.userData.baseY = 0.31;
+    scene.add(cone);
+    cones.push(cone);
+  });
+
+  var ballGroup = new THREE.Group();
+  var ballGeo = new THREE.IcosahedronGeometry(0.42, 1);
+  var ball = new THREE.Mesh(ballGeo, new THREE.MeshStandardMaterial({ color: INK, roughness: 0.4, metalness: 0.05, flatShading: true }));
+  ballGroup.add(ball);
+  var ballEdges = new THREE.LineSegments(
+    new THREE.EdgesGeometry(ballGeo),
+    new THREE.LineBasicMaterial({ color: 0x12171A, transparent:true, opacity:0.55 })
+  );
+  ballGroup.add(ballEdges);
+  scene.add(ballGroup);
+
+  var ballShadow = new THREE.Mesh(
+    new THREE.CircleGeometry(0.4, 24),
+    new THREE.MeshBasicMaterial({ color: 0x0B0F11, transparent:true, opacity:0.35 })
+  );
+  ballShadow.rotation.x = -Math.PI/2;
+  ballShadow.position.y = 0.02;
+  scene.add(ballShadow);
+
+  function pathAt(p){
+    return new THREE.Vector3(Math.sin(p * Math.PI * 5.2) * 1.5, 0.42, 8.5 - p * 17);
+  }
+
+  var trailPts = [];
+  for(var p = 0; p <= 1.0001; p += 0.01){
+    var v = pathAt(p);
+    trailPts.push(new THREE.Vector3(v.x, 0.03, v.z));
+  }
+  scene.add(new THREE.Line(
+    new THREE.BufferGeometry().setFromPoints(trailPts),
+    new THREE.LineBasicMaterial({ color: AMBER, transparent:true, opacity:0.4 })
+  ));
+
+  function resize(){
+    var r = canvas.parentElement.getBoundingClientRect();
+    renderer.setSize(r.width, r.height, false);
+    camera.aspect = r.width / Math.max(r.height, 1);
+    camera.updateProjectionMatrix();
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  // Bei reduzierter Bewegung: eine statische Aufstellung, kein Animationsloop
+  if(reduced){
+    var still = pathAt(0.5);
+    ballGroup.position.copy(still);
+    ballShadow.position.set(still.x, 0.02, still.z);
+    renderer.render(scene, camera);
+    canvas.classList.add('ready');
+    return;
+  }
+
+  var progress = 0, last = performance.now(), pointerX = 0, targetPointerX = 0;
+  window.addEventListener('pointermove', function(e){
+    targetPointerX = (e.clientX / window.innerWidth - 0.5) * 2;
+  }, { passive:true });
+
+  // Nur rendern, solange der Hero im Bild und der Tab aktiv ist
+  var onScreen = true, tabVisible = true, rafId = null;
+
+  function sync(){
+    var shouldRun = onScreen && tabVisible;
+    if(shouldRun && rafId === null){
+      last = performance.now();
+      rafId = requestAnimationFrame(frame);
+    } else if(!shouldRun && rafId !== null){
+      cancelAnimationFrame(rafId);
+      rafId = null;
+    }
+  }
+
+  document.addEventListener('visibilitychange', function(){
+    tabVisible = !document.hidden;
+    sync();
+  });
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(entries){
+      onScreen = entries[0].isIntersecting;
+      sync();
+    }, { threshold: 0 }).observe(canvas.parentElement);
+  }
+
+  function frame(now){
+    rafId = requestAnimationFrame(frame);
+    var dt = Math.min((now - last) / 1000, 0.05);
+    last = now;
+
+    progress = (progress + dt * 0.075) % 1;
+
+    var pos = pathAt(progress);
+    var hop = Math.abs(Math.sin(progress * Math.PI * 5.2)) * 0.12;
+    ballGroup.position.set(pos.x, pos.y + hop, pos.z);
+    ballShadow.position.set(pos.x, 0.02, pos.z);
+    ballShadow.scale.setScalar(1 - hop * 0.5);
+
+    var dir = pathAt((progress + 0.004) % 1).sub(pos);
+    ball.rotation.x -= dt * 3.2;
+    ball.rotation.z -= dir.x * 2.2;
+    ballEdges.rotation.copy(ball.rotation);
+
+    cones.forEach(function(c){
+      var near = Math.max(0, 1 - Math.abs(c.position.z - pos.z) / 1.6);
+      c.position.y = c.userData.baseY + near * 0.16;
+      c.rotation.z = near * 0.22 * (pos.x > c.position.x ? 1 : -1);
+    });
+
+    pointerX += (targetPointerX - pointerX) * 0.03;
+    camera.position.x = pointerX * 1.6;
+    camera.position.y = 5.2 + Math.sin(now / 4200) * 0.25;
+    camera.lookAt(0, 0.5, 0);
+
+    renderer.render(scene, camera);
+  }
+
+  sync();
+  canvas.classList.add('ready');
+})();
+</script>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Mobile drawer
+  (function(){
+    var burger = document.getElementById('burgerBtn');
+    var drawer = document.getElementById('mobileDrawer');
+
+    function setDrawer(open){
+      drawer.classList.toggle('open', open);
+      drawer.inert = !open;
+      burger.setAttribute('aria-expanded', String(open));
+      burger.setAttribute('aria-label', open ? 'Menü schließen' : 'Menü öffnen');
+      burger.textContent = open ? '✕' : '☰';
+      document.body.classList.toggle('drawer-open', open);
+    }
+
+    burger.addEventListener('click', function(){
+      setDrawer(!drawer.classList.contains('open'));
+    });
+    drawer.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', function(){ setDrawer(false); });
+    });
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape' && drawer.classList.contains('open')){
+        setDrawer(false);
+        burger.focus();
+      }
+    });
+    // Beim Wechsel auf Desktop-Breite darf kein offener Drawer zurueckbleiben
+    window.matchMedia('(min-width:861px)').addEventListener('change', function(e){
+      if(e.matches) setDrawer(false);
+    });
+  })();
+
+  // Scroll reveal
+  (function(){
+    var els = document.querySelectorAll('.reveal');
+    if(!('IntersectionObserver' in window)){
+      els.forEach(function(el){ el.classList.add('in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.15 });
+    els.forEach(function(el){ io.observe(el); });
+  })();
+
+  // Kontaktformular
+  (function(){
+    var form = document.getElementById('contactForm');
+    var box = document.getElementById('formSuccess');
+    var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    function validateField(field){
+      var input = field.querySelector('input, select, textarea');
+      if(!input || !input.required) return true;
+      var val = (input.value || '').trim();
+      var ok = val !== '' && !(input.type === 'email' && !emailRe.test(val));
+      field.classList.toggle('invalid', !ok);
+      input.setAttribute('aria-invalid', String(!ok));
+      return ok;
+    }
+
+    // Live-Nachvalidierung erst nach dem ersten Absendeversuch, sonst meckert das Formular beim Tippen
+    form.querySelectorAll('.field').forEach(function(field){
+      var input = field.querySelector('input, select, textarea');
+      if(!input) return;
+      input.addEventListener('blur', function(){
+        if(form.dataset.submitted) validateField(field);
+      });
+    });
+
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      form.dataset.submitted = '1';
+
+      var firstInvalid = null;
+      form.querySelectorAll('.field').forEach(function(field){
+        if(!validateField(field) && !firstInvalid) firstInvalid = field;
+      });
+      if(firstInvalid){
+        var bad = firstInvalid.querySelector('input, select, textarea');
+        if(bad) bad.focus();
+        return;
+      }
+
+      var btn = form.querySelector('button[type="submit"]');
+      btn.disabled = true;
+      btn.textContent = 'Wird gesendet …';
+
+      fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(new FormData(form)).toString()
+      })
+      .then(function(res){
+        if(!res.ok) throw new Error('Netzwerkfehler');
+        box.textContent = 'Danke! Deine Anfrage ist eingegangen — Gamechanger meldet sich zeitnah bei dir.';
+        box.classList.remove('error');
+        box.classList.add('show');
+        form.reset();
+        delete form.dataset.submitted;
+        form.querySelectorAll('.field').forEach(function(f){
+          f.classList.remove('invalid');
+          var i = f.querySelector('input, select, textarea');
+          if(i) i.removeAttribute('aria-invalid');
+        });
+      })
+      .catch(function(){
+        box.textContent = 'Senden fehlgeschlagen. Bitte versuche es erneut oder schreib uns direkt über Instagram.';
+        box.classList.add('show', 'error');
+      })
+      .finally(function(){
+        btn.disabled = false;
+        btn.textContent = 'Anfrage senden →';
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>
